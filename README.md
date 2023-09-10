@@ -1,0 +1,1 @@
+使用CLion开发STM32F103ZET6标准库，标准库版本：`V3.6.0 / 20-September-2021`。已重定向串口1为`printf`。
