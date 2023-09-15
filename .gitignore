@@ -1,2 +1,5 @@
 # Project exclude paths
 /cmake-build-debug/
+/Project/Listings/
+/Project/Objects/
+/Project/STM32F103ZET6_StdPeriph_Lib_Project.uvguix.Peakors
