@@ -90,6 +90,13 @@ int _read(int fd, char *ptr, int len) {
 //FILE __stdout;
 //FILE __stdin;
 
+//因为禁止了半主机模式，需要重写一个半主机模式下的接口，如下
+int _ttywrch(int ch)
+{
+    ch=ch;
+	return ch;
+}
+
 struct __FILE 
 { 
 	int handle; 
@@ -99,7 +106,7 @@ struct __FILE
 FILE __stdout;  
 
 //定义_sys_exit()以避免使用半主机模式
-_sys_exit(int x) {
+void _sys_exit(int x) {
     x = x;
 }
 
