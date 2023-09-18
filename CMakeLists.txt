@@ -59,12 +59,14 @@ include_directories(
         System/Src
         User
         Startup
+        SystemLibrary/Inc
+        SystemLibrary/Src
 
 )
 
-add_definitions(-DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xE -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD -D__GCC_UART_RETARGET)
+add_definitions(-DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xE -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD -DGCC_PRINTF_RETARGET)
 
-file(GLOB_RECURSE SOURCES "Library/*.*" "StartLibrary/*.*" "Hardware/*.*" "System/*.*" "User/*.*" "Startup/*.*")
+file(GLOB_RECURSE SOURCES "Library/*.*" "StartLibrary/*.*" "Hardware/*.*" "System/*.*" "User/*.*" "Startup/*.*" "SystemLibrary/*.*")
 
 set(LINKER_SCRIPT ${CMAKE_SOURCE_DIR}/STM32F103ZETX_FLASH.ld)
 

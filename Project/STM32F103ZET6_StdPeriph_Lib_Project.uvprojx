@@ -338,9 +338,9 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls></MiscControls>
-              <Define>STM32F10X_HD USE_STDPERIPH_DRIVER</Define>
+              <Define>STM32F10X_HD USE_STDPERIPH_DRIVER ARMCC_PRINTF_RETARGET</Define>
               <Undefine></Undefine>
-              <IncludePath>.\Start;.\CoreSupport;..\StartLibrary;..\User;..\Library\Inc;..\Library\Src;..\Hardware\Inc;..\Hardware\Src;..\System\Inc;..\System\Src</IncludePath>
+              <IncludePath>.\Start;.\CoreSupport;..\StartLibrary;..\User;..\Library\Inc;..\Library\Src;..\Hardware\Inc;..\Hardware\Src;..\System\Inc;..\System\Src;..\SystemLibrary\Inc;..\SystemLibrary\Src</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -753,6 +753,26 @@
               <FileName>Delay.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\System\Src\Delay.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>SystemLibrary/Inc</GroupName>
+          <Files>
+            <File>
+              <FileName>retarget.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\SystemLibrary\Inc\retarget.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>SystemLibrary/Src</GroupName>
+          <Files>
+            <File>
+              <FileName>retarget.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\SystemLibrary\Src\retarget.c</FilePath>
             </File>
           </Files>
         </Group>
