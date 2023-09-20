@@ -24,6 +24,8 @@
 
 #include "stdbool.h"
 
+#include "gy30.h"
+
 //宏定义
 #define DeviceName 	 "DHT11"
 #define ProductKey 	 "i9h5MzZY14t"

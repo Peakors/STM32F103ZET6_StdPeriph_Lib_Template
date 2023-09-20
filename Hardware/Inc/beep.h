@@ -10,6 +10,8 @@
 #define BEEP_OVER  GPIOB->ODR ^= 1<<8      	              //异或操作
 //函数声明
 void BEEPGpioInit(void);
+void BEEP_Open(void);
+void BEEP_Close(void);
 
 
 #endif
