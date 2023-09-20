@@ -1,51 +1,29 @@
-#include "stm32f10x.h"                  // Device header
+#include "led.h"
 
-void LED_Init(void){
-	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA | RCC_APB2Periph_GPIOD, ENABLE);
-	
-	GPIO_InitTypeDef GPIO_InitStructure;
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_8;
-	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-	GPIO_Init(GPIOA, &GPIO_InitStructure);
-
-    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_2;
-    GPIO_Init(GPIOD, &GPIO_InitStructure);
-	
-	GPIO_SetBits(GPIOA, GPIO_Pin_8);
-    GPIO_SetBits(GPIOD, GPIO_Pin_2);
-}
-
-void LED0_ON(void){
-	GPIO_ResetBits(GPIOA, GPIO_Pin_8);
-}
-
-void LED0_OFF(void){
-	GPIO_SetBits(GPIOA, GPIO_Pin_8);
-}
-
-void LED0_Turn(void){
-	if (GPIO_ReadOutputDataBit(GPIOA, GPIO_Pin_8) == 0){
-		GPIO_SetBits(GPIOA, GPIO_Pin_8);
-	}
-	else{
-		GPIO_ResetBits(GPIOA, GPIO_Pin_8);
-	}
-}
-
-void LED1_ON(void){
-    GPIO_ResetBits(GPIOD, GPIO_Pin_2);
-}
-
-void LED1_OFF(void){
-    GPIO_SetBits(GPIOD, GPIO_Pin_2);
-}
-
-void LED1_Turn(void){
-    if (GPIO_ReadOutputDataBit(GPIOD, GPIO_Pin_2) == 0){
-        GPIO_SetBits(GPIOD, GPIO_Pin_2);
-    }
-    else{
-        GPIO_ResetBits(GPIOD, GPIO_Pin_2);
-    }
+/****************************************
+函数功能:初始化LED连接的IO
+输入参数:传值方式皆为输入参数	
+输出参数:传地址无const修饰的皆为输出参数	
+函数返回值:无
+硬件连接说明:忽略
+*****************************************/
+void LEDInit(void)
+{
+		GPIO_InitTypeDef GPIO_InitStruct;
+		RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOE|RCC_APB2Periph_GPIOA|RCC_APB2Periph_GPIOB, ENABLE);
+		GPIO_InitStruct.GPIO_Pin = GPIO_Pin_5|GPIO_Pin_6;
+		GPIO_InitStruct.GPIO_Speed = GPIO_Speed_50MHz;
+		GPIO_InitStruct.GPIO_Mode = GPIO_Mode_Out_PP;
+		GPIO_Init(GPIOA,&GPIO_InitStruct);
+		/******************GPIOE***************/
+		GPIO_InitStruct.GPIO_Pin = GPIO_Pin_5;
+		GPIO_Init(GPIOE,&GPIO_InitStruct);
+		/******************GPIOB***************/
+		GPIO_InitStruct.GPIO_Pin = GPIO_Pin_5;
+		GPIO_Init(GPIOB,&GPIO_InitStruct);
+		//全部关闭
+	LED1_OFF;
+	LED2_OFF;
+	LED3_OFF;
+	LED4_OFF;
 }
