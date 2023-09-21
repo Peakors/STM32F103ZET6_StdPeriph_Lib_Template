@@ -7,6 +7,9 @@
 
 /* ADC通道宏定义 */
 #define Mq2    1
+#define MQ135_val 2
+#define Rain 3
+#define Soil 4
 
 
 void Adc_Init(void);

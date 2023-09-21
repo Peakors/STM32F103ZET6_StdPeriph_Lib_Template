@@ -12,3 +12,9 @@ Keil重定向参考文档：blog.csdn.net/qq_34810707/article/details/112255306
 - 成功加载2023.9.14代码 `温湿度上报.rar`
 - 实现ESP8266连接WiFi功能
 - 实现I2C读取光照值
+- DHT11
+- MQ3
+- MQ35
+- Rain
+- Soil
+- MQTT上传成功

@@ -132,6 +132,15 @@ void TouchScreenControl(DevInfo *devinfo) {
 ****************************************************************/
 void GetdevInfo(DevInfo *devinfo) {
     devinfo->MQ2 = ADC_Val_Disp(Mq2);
+//    Delay_ms(500);
+    devinfo->MQ135 = ADC_Val_Disp(MQ135_val);
+//    Delay_ms(500);
+    devinfo->Rain_value = ADC_Val_Disp(Rain);
+//    Delay_ms(500);
+    devinfo->Soil_value = ADC_Val_Disp(Soil);
+//    Delay_ms(500);
+    devinfo->light_value = BH1750_Read_Data(0x46);
+//    Delay_ms(500);
     dht11_read_ht(&devinfo->T, &devinfo->H);
 }
 
@@ -155,19 +164,25 @@ void DealWithData(DevInfo *devinfo) {
 ****************************************************************/
 void DisplayInfo(const DevInfo *devinfo) {
     //显示
-    switch (devinfo->Page) {
-        case 1:
-            Auto_Show_Picture(0, 0, gImage_main);
-            break;
-        case 2:
-            Auto_Show_Picture(180, 260, gImage_return);
-            LCD_Dis_String(0, 50, "农业工程学院", 0x0008, 0xffee, 2, 1);
-            break;
-        case 3:
-            Auto_Show_Picture(180, 260, gImage_return);
-            LCD_Dis_String(0, 50, "123456789", 0x0008, 0xffee, 2, 1);
-            break;
-    }
+//    switch (devinfo->Page) {
+//        case 1:
+//            Auto_Show_Picture(0, 0, gImage_main);
+//            break;
+//        case 2:
+//            Auto_Show_Picture(180, 260, gImage_return);
+//            LCD_Dis_String(0, 50, "xxxxxxx", 0x0008, 0xffee, 2, 1);
+//            break;
+//        case 3:
+//            Auto_Show_Picture(180, 260, gImage_return);
+//            LCD_Dis_String(0, 50, "123456789", 0x0008, 0xffee, 2, 1);
+//            break;
+//    }
+
+    LCD_Dis_String(0, 50, "曹睿", 0x0008, 0xffee, 2, 1);
+
+
+
+
 }
 
 /***************************************************************
@@ -204,17 +219,20 @@ void ReportTask(const DevInfo *devinfo) {
     count++;
     if (count > 20) {
         count = 0;
-        u8 tmpbuf[320] = {0};
+        u8 tmpbuf[1024] = {0};
         sprintf((char *) tmpbuf,
-                "{\"method\":\"thing.event.property.post\",\"id\":\"292200613\",\"params\":{\"CurrentTemperature\":%f,\"RelativeHumidity\":%f},\"version\":\"1.0.0\"}",
-                (float) devinfo->T, (float) devinfo->H);
+                "{\"method\":\"thing.event.property.post\",\"id\":\"292200613\",\"params\":{\"Light\":%d,\"temperature\":%d,\"Humidity\":%d,\"MQ2_Value\":%d,\"MQ135_Value\":%d,\"Rain_Value\":%d,\"soilHumidity\":%d},\"version\":\"1.0.0\"}",
+                devinfo->light_value, (int) devinfo->T, (int) devinfo->H, (int) devinfo->MQ2,(int) devinfo->MQ135, devinfo->Rain_value, devinfo->Soil_value);
 //		sprintf((char *)tmpbuf,"{\"method\":\"thing.event.property.post\",\"id\":\"292200613\",\"params\":{\"LightSwitch\":1},\"version\":\"1.0.0\"}");
         MY_MQTT.PublishData(DEVICE_PUBLISH, (char *) tmpbuf, 0);
 
         printf("\r\n===================\r\n");
 
         printf("=====>#MQ2:%d\r\n=====>#T:%d\r\n=====>#H:%d\r\n", (int) devinfo->MQ2, (int) devinfo->T, (int) devinfo->H);
-        printf("=====>#光照强度:%d\r\n",BH1750_Read_Data(0x46));
+        printf("=====>#MQ135:%d\r\n", (int) devinfo->MQ135);
+        printf("=====>#Rain:%d\r\n",devinfo->Rain_value);
+        printf("=====>#Soil:%d\r\n",devinfo->Soil_value);
+        printf("=====>#光照强度:%d\r\n",devinfo->light_value);
         printf("===================\r\n");
 
 

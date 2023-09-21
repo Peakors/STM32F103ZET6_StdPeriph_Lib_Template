@@ -12,6 +12,8 @@ int main(void) {
 
 
     DevInfo devinfo;
+
+
     unsigned char ConnetFlag = 0;
     NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);        //中断优先级分组
     Delay_Init();                                                                //定时器延时初始化
@@ -36,14 +38,20 @@ int main(void) {
 
     printf("Init Success!\r\n");
 
+    LCD_Dis_String(0, 20, (uint8_t *)"陈正峰", 0x0008, 0xffee, 2, 1);
 
-    Wifi_Connect(aliyun_ip, 1883, "xxxyiot", "xxxya508");
+
+    Wifi_Connect(aliyun_ip, 1883, "Peakors", "Peak0520");
+
+
     MY_MQTT.Init((u8 *) wifi.ReceiveBuff, 512, (u8 *) wifi.SendBuff, 512);
     ConnetFlag = MY_MQTT.Connect(ClientID, UserName, PassWord);                            //连接
     ConnetFlag ? printf("MQTT连接成功\r\n") : printf("MQTT连接失败\r\n");
     ConnetFlag = MY_MQTT.SubscribeTopic(DEVICE_SUBSCRIBE, 0, 1);                                //主题 QOS=0,订阅
     ConnetFlag ? printf("主题订阅成功\r\n") : printf("主题订阅失败\r\n");
     memset(&devinfo, 0, sizeof(DevInfo));
+
+
     devinfo.Page = 1;
     while (1) {
         /************************输入任务部分****************************************/
@@ -51,19 +59,21 @@ int main(void) {
         TouchScreenControl(&devinfo);                                    //触摸屏控制命令
         GetdevInfo(&devinfo);                                                    //获取设备信息
 
-        key_value = key_scan();
-
-        if (key_value == 1) {
-            BEEP_Open();
-        }
-
-        if (key_value == 2){
-            BEEP_Close();
-        }
+//        key_value = key_scan();
+//
+//        if (key_value == 1) {
+//            BEEP_Open();
+//        }
+//
+//        if (key_value == 2){
+//            BEEP_Close();
+//        }
 
 //        printf("光照强度:%d\r\n",BH1750_Read_Data(0x46));
 //        sprintf(buff,"Light :%3d",BH1750_Read_Data(0x46));
 //        LCD_Dis_String(10,128,(const unsigned char *)buff,0x0002,0xfff9,2,1);
+
+
 
 
         /************************处理任务部分****************************************/

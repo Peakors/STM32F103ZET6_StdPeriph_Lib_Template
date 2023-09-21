@@ -27,13 +27,13 @@
 #include "gy30.h"
 
 //宏定义
-#define DeviceName 	 "DHT11"
-#define ProductKey 	 "i9h5MzZY14t"
-#define DeviceSecret "d6db85e8b04d1f588a265bf7678f433d"
+#define DeviceName 	 "Light"
+#define ProductKey 	 "k08wu4HmZ9e"
+#define DeviceSecret "1d0d1245b386ed27c68ccb46f77f971a"
 /*宏定义--客户端ID 用户名*/
 #define ClientID	DeviceName"|securemode=3,signmethod=hmacsha1|"							//用户ID
 #define UserName	DeviceName"&"ProductKey                                   	//用户名
-#define PassWord	"5f4b687599363fb778bb0dc8490b70912431da30"                  //用户密码
+#define PassWord	"b6cb7627e3bec56161e9e66869f1e01668b006a1"                  //用户密码
 #define aliyun_ip ProductKey".iot-as-mqtt.cn-shanghai.aliyuncs.com"           //阿里云IP
 #define DEVICE_SUBSCRIBE "/sys/"ProductKey"/"DeviceName"/thing/service/property/set"	//订阅主题
 #define DEVICE_PUBLISH "/sys/"ProductKey"/"DeviceName"/thing/event/property/post"     //发布消息
@@ -51,6 +51,9 @@ typedef struct {
 	bool AutoMode;
 	float MQ2;
 	float MQ135;
+    int Rain_value;
+    int Soil_value;
+    int light_value;
 	int Yl83;
 	int Speed;
 	int Direction;

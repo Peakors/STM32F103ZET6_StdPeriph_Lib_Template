@@ -13,14 +13,21 @@ void Adc_Init(void) {
     ADC_InitTypeDef ADC_InitStructure;
 
     /* 开启GPIO口和ADC的时钟 */
-    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC | RCC_APB2Periph_ADC1, ENABLE);
+    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC | RCC_APB2Periph_ADC1 | RCC_APB2Periph_GPIOA, ENABLE);
     /* 设置ADC模块工作频率 72/6 = 12M 不超过14MHz*/
     RCC_ADCCLKConfig(RCC_PCLK2_Div6);
 
-    /* 设置ADC通道管脚对应的GPIOA234 */
-    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0 | GPIO_Pin_4;
+    // ADC1_IN10 ---> PC0
+    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0;
     GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;                          //模拟输入引脚
     GPIO_Init(GPIOC, &GPIO_InitStructure);
+
+
+    // ADC1_INT1 ---> PA0
+    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0 | GPIO_Pin_1 | GPIO_Pin_4;
+    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;                          //模拟输入引脚
+    GPIO_Init(GPIOA, &GPIO_InitStructure);
+
 
     /* 设置ADC模块工作模式 */
     ADC_InitStructure.ADC_Mode = ADC_Mode_Independent;                      //ADC独立模式
@@ -35,14 +42,11 @@ void Adc_Init(void) {
     ADC_Cmd(ADC1, ENABLE);                                                   //开启ADC1
 
     /* ADC模块校验 */
-    ADC_ResetCalibration(
-            ADC1);                                                                                            //重置ADC1的校准寄存器
-    while (ADC_GetResetCalibrationStatus(
-            ADC1));                                                            //获取ADC1重置校准寄存器的状态,设置状态则等待
+    ADC_ResetCalibration(ADC1);    //重置ADC1的校准寄存器
+    while (ADC_GetResetCalibrationStatus(ADC1));      //获取ADC1重置校准寄存器的状态,设置状态则等待
 
-    ADC_StartCalibration(
-            ADC1);                                                                                        //开始ADC1的校准状态
-    while (ADC_GetCalibrationStatus(ADC1));                                                                 //等待校准完成
+    ADC_StartCalibration(ADC1);           //开始ADC1的校准状态
+    while (ADC_GetCalibrationStatus(ADC1));              //等待校准完成
 }
 
 /**************************** ADC转换值获取函数 ****************************
@@ -59,6 +63,20 @@ u16 Get_adcvalue(u8 device) {
         case Mq2:
             ADC_RegularChannelConfig(ADC1, 10, 1, ADC_SampleTime_239Cycles5);
             break;  //2---PA2设置指定ADC的规则组通道，一个序列，采样时间
+
+        case MQ135_val: {
+            ADC_RegularChannelConfig(ADC1, 0, 1, ADC_SampleTime_239Cycles5);
+        }
+            break;
+        case Rain: {
+            ADC_RegularChannelConfig(ADC1, 1, 1, ADC_SampleTime_239Cycles5);
+        }
+            break;
+        case Soil: {
+            ADC_RegularChannelConfig(ADC1, 4, 1, ADC_SampleTime_239Cycles5);
+        }
+            break;
+
     }
 
     for (i = 0; i < 10; i++) {
@@ -91,13 +109,29 @@ u16 Get_adcvalue(u8 device) {
 返回值：无
 **************************************************************************/
 u16 ADC_Val_Disp(u8 device_num) {
-    u16 ADC_Temp = 0;                     //ADC转换后的数字量
+    uint32_t ADC_Temp = 0;                     //ADC转换后的数字量
     /* 获取ADC转换值 */
     ADC_Temp = Get_adcvalue(device_num);
     /**/
     switch (device_num) {
-        case Mq2:
+        case Mq2: {
+//            return (uint16_t) ((ADC_Temp/4095.0) * 3.3);
             return (u16) ((((5000.0 - 300) / 4096) * ADC_Temp) + 300);
+        }
+            break;
+        case MQ135_val: {
+//            return (uint16_t) ((ADC_Temp/4095.0) * 3.3);
+            return (u16) ((((5000.0 - 300) / 4096) * ADC_Temp) + 300);
+        }
+            break;
+        case Rain:{
+//            return (uint16_t) ((ADC_Temp/4095.0) * 3.3);
+            return (u16) ((((5000.0 - 300) / 4096) * ADC_Temp) + 300);
+        }break;
+        case Soil:{
+//            return (uint16_t) ((ADC_Temp/4095.0) * 3.3);
+            return (u16) ((((5000.0 - 300) / 4096) * ADC_Temp) + 300);
+        }
     }
     return 0;
 }
