@@ -26,6 +26,10 @@
 
 #include "gy30.h"
 
+#include "voice.h"
+
+
+
 //宏定义
 #define DeviceName 	 "Light"
 #define ProductKey 	 "k08wu4HmZ9e"
@@ -49,7 +53,7 @@ typedef struct {
 	bool RELAY1_States;
 	bool RELAY2_States;
 	bool AutoMode;
-	float MQ2;
+	int MQ2;
 	float MQ135;
     int Rain_value;
     int Soil_value;
@@ -57,8 +61,8 @@ typedef struct {
 	int Yl83;
 	int Speed;
 	int Direction;
-	u8 T;
-	u8 H;
+	int T;
+	int H;
 	int Page;
 }DevInfo;
 

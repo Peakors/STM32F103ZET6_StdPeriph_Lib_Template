@@ -3,8 +3,10 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/Hardware/Inc/gy30.h" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Hardware/Inc/iic.h" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Hardware/Src/function.c" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Hardware/Src/gy30.c" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Hardware/Src/iic.c" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Hardware/Src/voice.c" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/User/main.c" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/keilkill.bat" charset="UTF-8" />
   </component>

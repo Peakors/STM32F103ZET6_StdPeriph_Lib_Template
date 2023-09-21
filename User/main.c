@@ -28,20 +28,35 @@ int main(void) {
     USART_2_Init(115200);                                                            //串口2 115200
     timer3_init();                                                                        //串口2辅助定时器
 
-    timer4_init(1000);
+//    timer4_init(1000);
 
     IIC_Init();											//IIC初始化
     BH1750_Init();									//GY-30光照强度传感器初始化
 
 
-//    BootAnimation();      //TODO 开机动画
+
+
+
+
+
+#ifdef GCC_PRINTF_RETARGET
+    printf("使用GCC编译器，显示英文名字\r\n");
+#elif ARMCC_PRINTF_RETARGET
+    printf("使用ARMCC编译器，显示中文名字\r\n");
+#endif
 
     printf("Init Success!\r\n");
 
-    LCD_Dis_String(0, 20, (uint8_t *)"陈正峰", 0x0008, 0xffee, 2, 1);
 
 
-    Wifi_Connect(aliyun_ip, 1883, "Peakors", "Peak0520");
+
+
+
+
+
+//    Wifi_Connect(aliyun_ip, 1883, "Peakors", "Peak0520");
+
+    Wifi_Connect(aliyun_ip, 1883, "xxxyiot", "xxxya508");
 
 
     MY_MQTT.Init((u8 *) wifi.ReceiveBuff, 512, (u8 *) wifi.SendBuff, 512);
@@ -52,10 +67,16 @@ int main(void) {
     memset(&devinfo, 0, sizeof(DevInfo));
 
 
+
+    Voice_Config(9600);
+    Appoint_Song_Name("00001");
+    BootAnimation();      //开机动画
+
+
     devinfo.Page = 1;
     while (1) {
         /************************输入任务部分****************************************/
-        HostComputerControl(&devinfo);                                //上位机控制命令
+//        HostComputerControl(&devinfo);                                //上位机控制命令
         TouchScreenControl(&devinfo);                                    //触摸屏控制命令
         GetdevInfo(&devinfo);                                                    //获取设备信息
 
@@ -80,7 +101,7 @@ int main(void) {
         DealWithData(&devinfo);                                                //处理信息  报警等
         /************************输出任务部分****************************************/
         DisplayInfo(&devinfo);                                                //显示信息
-        SetDevStates(&devinfo);                                                //设置设备状态
+//        SetDevStates(&devinfo);                                                //设置设备状态
         ReportTask(&devinfo);                                                    //上报数据
         /************************清空任务部分****************************************/
     }

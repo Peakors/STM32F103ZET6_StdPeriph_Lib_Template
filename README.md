@@ -18,3 +18,5 @@ Keil重定向参考文档：blog.csdn.net/qq_34810707/article/details/112255306
 - Rain
 - Soil
 - MQTT上传成功
+- 阈值报警
+- 语音模块

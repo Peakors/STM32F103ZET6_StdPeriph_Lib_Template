@@ -340,7 +340,7 @@
               <MiscControls></MiscControls>
               <Define>STM32F10X_HD USE_STDPERIPH_DRIVER ARMCC_PRINTF_RETARGET</Define>
               <Undefine></Undefine>
-              <IncludePath>.\Start;.\CoreSupport;..\StartLibrary;..\User;..\Library\Inc;..\Library\Src;..\Hardware\Inc;..\Hardware\Src;..\System\Inc;..\System\Src;..\SystemLibrary\Inc;..\SystemLibrary\Src</IncludePath>
+              <IncludePath>.\Start;.\CoreSupport;..\StartLibrary;..\User;..\Library\Inc;..\Library\Src;..\Hardware\Inc;..\Hardware\Src;..\System\Inc;..\System\Src;..\SystemLibrary\Inc;..\SystemLibrary\Src;..\Picture</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -695,24 +695,109 @@
           <GroupName>Hardware/Inc</GroupName>
           <Files>
             <File>
-              <FileName>Key.h</FileName>
+              <FileName>adc.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\Hardware\Inc\Key.h</FilePath>
+              <FilePath>..\Hardware\Inc\adc.h</FilePath>
             </File>
             <File>
-              <FileName>LED.h</FileName>
+              <FileName>beep.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\Hardware\Inc\LED.h</FilePath>
+              <FilePath>..\Hardware\Inc\beep.h</FilePath>
             </File>
             <File>
-              <FileName>OLED.h</FileName>
+              <FileName>delay.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\Hardware\Inc\OLED.h</FilePath>
+              <FilePath>..\Hardware\Inc\delay.h</FilePath>
             </File>
             <File>
-              <FileName>OLED_Font.h</FileName>
+              <FileName>dht11.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\Hardware\Inc\OLED_Font.h</FilePath>
+              <FilePath>..\Hardware\Inc\dht11.h</FilePath>
+            </File>
+            <File>
+              <FileName>gy30.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Hardware\Inc\gy30.h</FilePath>
+            </File>
+            <File>
+              <FileName>iic.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Hardware\Inc\iic.h</FilePath>
+            </File>
+            <File>
+              <FileName>ili9486.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Hardware\Inc\ili9486.h</FilePath>
+            </File>
+            <File>
+              <FileName>key.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Hardware\Inc\key.h</FilePath>
+            </File>
+            <File>
+              <FileName>lcd_gui.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Hardware\Inc\lcd_gui.h</FilePath>
+            </File>
+            <File>
+              <FileName>led.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Hardware\Inc\led.h</FilePath>
+            </File>
+            <File>
+              <FileName>mqtt.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Hardware\Inc\mqtt.h</FilePath>
+            </File>
+            <File>
+              <FileName>relay.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Hardware\Inc\relay.h</FilePath>
+            </File>
+            <File>
+              <FileName>sys.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Hardware\Inc\sys.h</FilePath>
+            </File>
+            <File>
+              <FileName>sys_tick.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Hardware\Inc\sys_tick.h</FilePath>
+            </File>
+            <File>
+              <FileName>time4.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Hardware\Inc\time4.h</FilePath>
+            </File>
+            <File>
+              <FileName>timer.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Hardware\Inc\timer.h</FilePath>
+            </File>
+            <File>
+              <FileName>touch.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Hardware\Inc\touch.h</FilePath>
+            </File>
+            <File>
+              <FileName>usart.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Hardware\Inc\usart.h</FilePath>
+            </File>
+            <File>
+              <FileName>usart2.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Hardware\Inc\usart2.h</FilePath>
+            </File>
+            <File>
+              <FileName>user_config.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Hardware\Inc\user_config.h</FilePath>
+            </File>
+            <File>
+              <FileName>wifi.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Hardware\Inc\wifi.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -720,41 +805,112 @@
           <GroupName>Hardware/Src</GroupName>
           <Files>
             <File>
-              <FileName>Key.c</FileName>
+              <FileName>adc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Hardware\Src\Key.c</FilePath>
+              <FilePath>..\Hardware\Src\adc.c</FilePath>
             </File>
             <File>
-              <FileName>LED.c</FileName>
+              <FileName>beep.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Hardware\Src\LED.c</FilePath>
+              <FilePath>..\Hardware\Src\beep.c</FilePath>
             </File>
             <File>
-              <FileName>OLED.c</FileName>
+              <FileName>delay.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Hardware\Src\OLED.c</FilePath>
+              <FilePath>..\Hardware\Src\delay.c</FilePath>
+            </File>
+            <File>
+              <FileName>dht11.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Hardware\Src\dht11.c</FilePath>
+            </File>
+            <File>
+              <FileName>function.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Hardware\Src\function.c</FilePath>
+            </File>
+            <File>
+              <FileName>gy30.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Hardware\Src\gy30.c</FilePath>
+            </File>
+            <File>
+              <FileName>iic.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Hardware\Src\iic.c</FilePath>
+            </File>
+            <File>
+              <FileName>ili9486.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Hardware\Src\ili9486.c</FilePath>
+            </File>
+            <File>
+              <FileName>key.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Hardware\Src\key.c</FilePath>
+            </File>
+            <File>
+              <FileName>lcd_gui.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Hardware\Src\lcd_gui.c</FilePath>
+            </File>
+            <File>
+              <FileName>led.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Hardware\Src\led.c</FilePath>
+            </File>
+            <File>
+              <FileName>mqtt.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Hardware\Src\mqtt.c</FilePath>
+            </File>
+            <File>
+              <FileName>relay.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Hardware\Src\relay.c</FilePath>
+            </File>
+            <File>
+              <FileName>sys_tick.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Hardware\Src\sys_tick.c</FilePath>
+            </File>
+            <File>
+              <FileName>time4.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Hardware\Src\time4.c</FilePath>
+            </File>
+            <File>
+              <FileName>timer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Hardware\Src\timer.c</FilePath>
+            </File>
+            <File>
+              <FileName>touch.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Hardware\Src\touch.c</FilePath>
+            </File>
+            <File>
+              <FileName>usart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Hardware\Src\usart.c</FilePath>
+            </File>
+            <File>
+              <FileName>usart2.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Hardware\Src\usart2.c</FilePath>
+            </File>
+            <File>
+              <FileName>wifi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Hardware\Src\wifi.c</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
           <GroupName>System/Inc</GroupName>
-          <Files>
-            <File>
-              <FileName>Delay.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\System\Inc\Delay.h</FilePath>
-            </File>
-          </Files>
         </Group>
         <Group>
           <GroupName>System/Src</GroupName>
-          <Files>
-            <File>
-              <FileName>Delay.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\System\Src\Delay.c</FilePath>
-            </File>
-          </Files>
         </Group>
         <Group>
           <GroupName>SystemLibrary/Inc</GroupName>
@@ -773,6 +929,26 @@
               <FileName>retarget.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\SystemLibrary\Src\retarget.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Picture</GroupName>
+          <Files>
+            <File>
+              <FileName>dzk.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Picture\dzk.h</FilePath>
+            </File>
+            <File>
+              <FileName>font.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Picture\font.h</FilePath>
+            </File>
+            <File>
+              <FileName>pic.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Picture\pic.h</FilePath>
             </File>
           </Files>
         </Group>

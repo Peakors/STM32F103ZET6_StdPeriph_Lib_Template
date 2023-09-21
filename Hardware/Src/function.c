@@ -1,6 +1,53 @@
 #include "user_config.h"
 #include "pic.h"
 
+
+char lcd_buffer[256];
+
+static void display_name() {
+
+#ifdef GCC_PRINTF_RETARGET
+    LCD_Dis_String(0, 0, (u8 *) "Peakors 41", 0x0008, 0xffee, 2, 1);
+    LCD_Dis_String(0, 32, (u8 *) "Huang 39", 0x0008, 0xffee, 2, 1);
+    LCD_Dis_String(0, 64, (u8 *) "Huang 42", 0x0008, 0xffee, 2, 1);
+    LCD_Dis_String(0, 96, (u8 *) "Zhu 37", 0x0008, 0xffee, 2, 1);
+
+#elif ARMCC_PRINTF_RETARGET
+    LCD_Dis_String(0, 0, (u8 *) "陈正峰 41", 0x0008, 0xffee, 2, 1);
+    LCD_Dis_String(0, 32, (u8 *) "黄嘉成 39", 0x0008, 0xffee, 2, 1);
+    LCD_Dis_String(0, 64, (u8 *) "朱家贺 37", 0x0008, 0xffee, 2, 1);
+    LCD_Dis_String(0, 96, (u8 *) "黄锦辉 42", 0x0008, 0xffee, 2, 1);
+
+#endif
+}
+
+static void display_value(DevInfo devinfo) {
+    sprintf(lcd_buffer, "MQ2:%d", devinfo.MQ2);
+    LCD_Dis_String(0,0,(u8 *)lcd_buffer, 0x0008, 0xffee, 2, 1);
+
+    sprintf(lcd_buffer,"MQ135:%d", (int)devinfo.MQ135);
+    LCD_Dis_String(0,32,(u8 *)lcd_buffer, 0x0008, 0xffee, 2, 1);
+
+    sprintf(lcd_buffer,"Temperature:%d", devinfo.T);
+    LCD_Dis_String(0,64,(u8 *)lcd_buffer, 0x0008, 0xffee, 2, 1);
+
+    sprintf(lcd_buffer,"Humidity:%d", devinfo.H);
+    LCD_Dis_String(0,96,(u8 *)lcd_buffer, 0x0008, 0xffee, 2, 1);
+
+    sprintf(lcd_buffer,"Rain:%d",devinfo.Rain_value);
+    LCD_Dis_String(0,128,(u8 *)lcd_buffer, 0x0008, 0xffee, 2, 1);
+
+    sprintf(lcd_buffer,"Soil:%d", devinfo.Soil_value);
+    LCD_Dis_String(0,160,(u8 *)lcd_buffer, 0x0008, 0xffee, 2, 1);
+
+    sprintf(lcd_buffer, "Light:%d", devinfo.light_value);
+    LCD_Dis_String(0,192,(u8 *)lcd_buffer, 0x0008, 0xffee, 2, 1);
+
+
+
+}
+
+
 /***************************************************************
 函数名称:void BootAnimation(void)
 函数功能:开机动画
@@ -9,15 +56,41 @@
 返 回 值:无
 ****************************************************************/
 void BootAnimation(void) {
-    LCD_Dis_String(0, 0, "Peakors 202003040041", 0x0000, 0xffff, 1, 1);
-    for (int i = 0; i < 5; i++) {
-        Auto_Show_Picture(0, 32, gImage_11);
-        Delay_ms(500);
-        Auto_Show_Picture(0, 32, gImage_12);
-        Delay_ms(500);
-        Auto_Show_Picture(0, 32, gImage_13);
-        Delay_ms(500);
-    }
+
+    printf("中文显示请使用GB2312编码，UTF-8编码无法显示！\r\n");
+
+//    LCD_Dis_String(0, 0, (u8 *)"中文取模测试", 0x0008, 0xffee, 2, 1);
+
+    display_name();
+
+    Delay_ms(3000);
+
+//    LCD_Dis_String(0, 0, "Peakors 202003040041", 0x0000, 0xffff, 1, 1);
+
+//    Auto_Show_Picture(0, 0, Image_01);
+
+//    for (int i = 0; i < 5; i++) {
+    Auto_Show_Picture(0, 0, Image_01);
+    Delay_ms(500);
+    LCD_Clear(0, LCD_Width - 1, 0, LCD_High - 1, RGB(255, 255, 255));                //把LCD清成白屏
+    Auto_Show_Picture(0, 0, Image_02);
+    Delay_ms(500);
+    LCD_Clear(0, LCD_Width - 1, 0, LCD_High - 1, RGB(255, 255, 255));                //把LCD清成白屏
+
+
+
+//    Auto_Show_Picture(0, 0, Image_03);
+//    Delay_ms(500);
+//    LCD_Clear(0, LCD_Width - 1, 0, LCD_High - 1, RGB(255, 255, 255));                //把LCD清成白屏
+
+
+
+
+
+
+
+
+//    }
 }
 
 
@@ -94,32 +167,53 @@ void HostComputerControl(DevInfo *devinfo) {
 ****************************************************************/
 void TouchScreenControl(DevInfo *devinfo) {
     TOUCH_TYPE_DEF touchnum = Touch_Scanf();
+
     if (touchnum.x != 65535) {
         LCD_Clear(0, 239, 0, 319, 0xffff);
         printf("x:%d  y:%d\r\n", touchnum.x, touchnum.y);
         //12  263   85 314
-        if ((devinfo->Page == 1) && (touchnum.x < 85) && (touchnum.x > 12) && (touchnum.y < 314) &&
-            (touchnum.y > 263)) {
-            //进入该作用域  2界面
-            devinfo->Page = 2;
+//        if ((devinfo->Page == 1) && (touchnum.x < 85) && (touchnum.x > 12) && (touchnum.y < 314) &&
+//            (touchnum.y > 263)) {
+//            //进入该作用域  2界面
+//            devinfo->Page = 2;
+//
+//        }
+//            //150 266 213 316
+//        else if ((devinfo->Page == 1) && (touchnum.x < 213) && (touchnum.x > 150) && (touchnum.y < 316) &&
+//                 (touchnum.y > 266)) {
+//            //进入该作用域  3界面
+//            devinfo->Page = 3;
+//        }
+//            //180 260
+//        else if ((devinfo->Page == 2) && (touchnum.x < 239) && (touchnum.x > 180) && (touchnum.y < 319) &&
+//                 (touchnum.y > 260)) {
+//            //进入该作用域  1界面
+//            devinfo->Page = 1;
+//        } else if ((devinfo->Page == 3) && (touchnum.x < 239) && (touchnum.x > 180) && (touchnum.y < 319) &&
+//                   (touchnum.y > 260)) {
+//            //进入该作用域  1界面
+//            devinfo->Page = 1;
+//        }
 
+        if (touchnum.y >= 100) {
+            touchnum.y = 0;
+            if (devinfo->Page == 1) {
+
+                Appoint_Song_Name("00002");
+
+                devinfo->Page = 2;
+                LCD_Clear(0, LCD_Width - 1, 0, LCD_High - 1, RGB(255, 255, 255));                //把LCD清成白屏
+            } else if (devinfo->Page == 2) {
+
+                Appoint_Song_Name("00002");
+
+                devinfo->Page = 1;
+                LCD_Clear(0, LCD_Width - 1, 0, LCD_High - 1, RGB(255, 255, 255));                //把LCD清成白屏
+            }
         }
-            //150 266 213 316
-        else if ((devinfo->Page == 1) && (touchnum.x < 213) && (touchnum.x > 150) && (touchnum.y < 316) &&
-                 (touchnum.y > 266)) {
-            //进入该作用域  3界面
-            devinfo->Page = 3;
-        }
-            //180 260
-        else if ((devinfo->Page == 2) && (touchnum.x < 239) && (touchnum.x > 180) && (touchnum.y < 319) &&
-                 (touchnum.y > 260)) {
-            //进入该作用域  1界面
-            devinfo->Page = 1;
-        } else if ((devinfo->Page == 3) && (touchnum.x < 239) && (touchnum.x > 180) && (touchnum.y < 319) &&
-                   (touchnum.y > 260)) {
-            //进入该作用域  1界面
-            devinfo->Page = 1;
-        }
+
+        printf("devinfo->Page = %d\r\n", devinfo->Page);
+
     }
 }
 
@@ -152,7 +246,31 @@ void GetdevInfo(DevInfo *devinfo) {
 返 回 值:无
 ****************************************************************/
 void DealWithData(DevInfo *devinfo) {
+    if (devinfo->light_value >= 3000){
 
+
+        Appoint_Song_Name("00003");
+
+
+        BEEP_Open();
+    }else{
+        BEEP_Close();
+    }
+
+    if(devinfo->H >= 80){
+
+        Appoint_Song_Name("00004");
+
+        LED1_ON;
+        LED2_ON;
+        LED3_ON;
+        LED4_ON;
+    }else{
+        LED1_OFF;
+        LED2_OFF;
+        LED3_OFF;
+        LED4_OFF;
+    }
 }
 
 /***************************************************************
@@ -178,12 +296,27 @@ void DisplayInfo(const DevInfo *devinfo) {
 //            break;
 //    }
 
-    LCD_Dis_String(0, 50, "曹睿", 0x0008, 0xffee, 2, 1);
+//    LCD_Dis_String(0, 50, "曹睿", 0x0008, 0xffee, 2, 1);
 
-
+    switch (devinfo->Page) {
+        case 1: {
+//            LCD_Clear(0, LCD_Width - 1, 0, LCD_High - 1, RGB(255, 255, 255));                //把LCD清成白屏
+            display_name();
+        }
+            break;
+        case 2: {
+//            LCD_Clear(0, LCD_Width - 1, 0, LCD_High - 1, RGB(255, 255, 255));                //把LCD清成白屏
+            display_value(*devinfo);
+        }
+            break;
+        default: {
+            return;
+        }
+    }
 
 
 }
+
 
 /***************************************************************
 函数名称:void SetDevStates(const DevInfo *devinfo)
@@ -217,24 +350,25 @@ void SetDevStates(const DevInfo *devinfo) {
 void ReportTask(const DevInfo *devinfo) {
     static u32 count = 0;
     count++;
-    if (count > 20) {
+    if (count > 50) {
         count = 0;
         u8 tmpbuf[1024] = {0};
         sprintf((char *) tmpbuf,
                 "{\"method\":\"thing.event.property.post\",\"id\":\"292200613\",\"params\":{\"Light\":%d,\"temperature\":%d,\"Humidity\":%d,\"MQ2_Value\":%d,\"MQ135_Value\":%d,\"Rain_Value\":%d,\"soilHumidity\":%d},\"version\":\"1.0.0\"}",
-                devinfo->light_value, (int) devinfo->T, (int) devinfo->H, (int) devinfo->MQ2,(int) devinfo->MQ135, devinfo->Rain_value, devinfo->Soil_value);
+                devinfo->light_value, (int) devinfo->T, (int) devinfo->H, (int) devinfo->MQ2, (int) devinfo->MQ135,
+                devinfo->Rain_value, devinfo->Soil_value);
 //		sprintf((char *)tmpbuf,"{\"method\":\"thing.event.property.post\",\"id\":\"292200613\",\"params\":{\"LightSwitch\":1},\"version\":\"1.0.0\"}");
         MY_MQTT.PublishData(DEVICE_PUBLISH, (char *) tmpbuf, 0);
 
         printf("\r\n===================\r\n");
 
-        printf("=====>#MQ2:%d\r\n=====>#T:%d\r\n=====>#H:%d\r\n", (int) devinfo->MQ2, (int) devinfo->T, (int) devinfo->H);
+        printf("=====>#MQ2:%d\r\n=====>#T:%d\r\n=====>#H:%d\r\n", (int) devinfo->MQ2, (int) devinfo->T,
+               (int) devinfo->H);
         printf("=====>#MQ135:%d\r\n", (int) devinfo->MQ135);
-        printf("=====>#Rain:%d\r\n",devinfo->Rain_value);
-        printf("=====>#Soil:%d\r\n",devinfo->Soil_value);
-        printf("=====>#光照强度:%d\r\n",devinfo->light_value);
+        printf("=====>#Rain:%d\r\n", devinfo->Rain_value);
+        printf("=====>#Soil:%d\r\n", devinfo->Soil_value);
+        printf("=====>#光照强度:%d\r\n", devinfo->light_value);
         printf("===================\r\n");
-
 
 
     }
